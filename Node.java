@@ -1,5 +1,5 @@
 public class Node{
-  private int data;
+  private Integer data;
   private Node next,prev;
   public Node(int dt, Node nt, Node pv){
     data = dt;
@@ -17,5 +17,14 @@ public class Node{
   }
   public void setPrev(Node other){
     prev = other;
+  }
+  public Integer getData(){
+    return data;
+  }
+  public Integer setData(Integer i){
+    data = i;
+  }
+  public String toString(){
+    return "" + data;
   }
 }
