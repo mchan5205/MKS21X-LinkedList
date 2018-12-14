@@ -32,7 +32,10 @@ public class MyLinkedList{
     return getNthNode(index).getData();
   }
   public Integer set(int index, Integer value){
-    return getNthNode(index).setData(value);
+    Node current = getNthNode(index);
+    int old = current.getData();
+    current.setData(value);
+    return old;
   }
   public boolean contains(Integer value){
     Node current = start;
@@ -59,7 +62,19 @@ public class MyLinkedList{
   public void add(int index, Integer value){
     Node current = getNthNode(index);
     Node y = new Node(value, current, current.prev());
+    current.prev().setNext(y);
     current.setPrev(y);
     size += 1;
+  }
+  public Integer remove(int index){
+    Node current = getNthNode(index);
+    int old = current.getData();
+    current.prev().setNext(current.next());
+    current.next().setPrev(current.prev());
+    return old;
+  }
+  public boolean remove(Integer value){
+    remove(IndexOf(value));
+    return true;
   }
 }

@@ -1,7 +1,7 @@
 public class Node{
   private Integer data;
   private Node next,prev;
-  public Node(int dt, Node nt, Node pv){
+  public Node(Integer dt, Node nt, Node pv){
     data = dt;
     next = nt;
     prev = pv;
