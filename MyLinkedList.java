@@ -8,17 +8,32 @@ public class MyLinkedList{
     return size;
   }
   public boolean add(int value){
-    Node y = new Node(value, null, end);
-    end.setNext(y);
-    y = end;
+    Node y;
+    if (start == null){
+      y = new Node(value, null, null);
+      start = y;
+      end = y;
+    }
+    else{
+      y = new Node(value, null, end);
+      end.setNext(y);
+      end = y;
+    }
     size += 1;
     return true;
   }
   public String toString(){
-    String y = "";
-    for (int i = 0; i < size; i ++){
-      y += "";
+    Node current = start;
+    String y = "[";
+    for (int i = 0; i < size - 1; i ++){
+      y += current + ", ";
+      current = current.next();
     }
+    if (size > 0){
+      y += current;
+    }
+    y += "]";
+    y += size;
     return y;
   }
   private Node getNthNode(int index){
@@ -47,7 +62,7 @@ public class MyLinkedList{
     }
     return false;
   }
-  public int IndexOf(Integer value){
+  public int indexOf(Integer value){
     Node current = start;
     int x = 0;
     while (current != null){
@@ -64,17 +79,34 @@ public class MyLinkedList{
     Node y = new Node(value, current, current.prev());
     current.prev().setNext(y);
     current.setPrev(y);
+    if (index == 0){
+      start = y;
+    }
+    if (index == size - 1){
+      end = y;
+    }
     size += 1;
   }
   public Integer remove(int index){
     Node current = getNthNode(index);
     int old = current.getData();
-    current.prev().setNext(current.next());
-    current.next().setPrev(current.prev());
+    if (current != start){
+      current.prev().setNext(current.next());
+    }
+    else{
+      start = current.next();
+    }
+    if (current != end){
+      current.next().setPrev(current.prev());
+    }
+    else{
+      end = current.prev();
+    }
+    size = size - 1;
     return old;
   }
   public boolean remove(Integer value){
-    remove(IndexOf(value));
+    remove(indexOf(value));
     return true;
   }
 }

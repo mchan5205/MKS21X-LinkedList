@@ -22,7 +22,9 @@ public class Node{
     return data;
   }
   public Integer setData(Integer i){
+    int old = data;
     data = i;
+    return old;
   }
   public String toString(){
     return "" + data;
