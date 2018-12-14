@@ -34,4 +34,32 @@ public class MyLinkedList{
   public Integer set(int index, Integer value){
     return getNthNode(index).setData(value);
   }
+  public boolean contains(Integer value){
+    Node current = start;
+    while (current != null){
+      if (current.getData() == value){
+        return true;
+      }
+      current = current.next();
+    }
+    return false;
+  }
+  public int IndexOf(Integer value){
+    Node current = start;
+    int x = 0;
+    while (current != null){
+      if (current.getData() == value){
+        return x;
+      }
+      current = current.next();
+      x += 1;
+    }
+    return -1;
+  }
+  public void add(int index, Integer value){
+    Node current = getNthNode(index);
+    Node y = new Node(value, current, current.prev());
+    current.setPrev(y);
+    size += 1;
+  }
 }
