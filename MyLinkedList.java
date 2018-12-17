@@ -128,7 +128,11 @@ public class MyLinkedList{
     return old;
   }
   public boolean remove(Integer value){
-    remove(indexOf(value));
-    return true;
+    int z = indexOf(value);
+    if (z >= 0){
+      remove(z);
+      return true;
+    }
+    return false;
   }
 }
