@@ -33,7 +33,6 @@ public class MyLinkedList{
       y += current;
     }
     y += "]";
-    y += size;
     return y;
   }
   private Node getNthNode(int index){
@@ -44,9 +43,15 @@ public class MyLinkedList{
     return current;
   }
   public Integer get(int index){
+    if (index < 0 || index >= size()){
+      throw new IndexOutOfBoundsException();
+    }
     return getNthNode(index).getData();
   }
   public Integer set(int index, Integer value){
+    if (index < 0 || index >= size()){
+      throw new IndexOutOfBoundsException();
+    }
     Node current = getNthNode(index);
     int old = current.getData();
     current.setData(value);
@@ -66,7 +71,7 @@ public class MyLinkedList{
     Node current = start;
     int x = 0;
     while (current != null){
-      if (current.getData() == value){
+      if (current.getData().equals(value)){
         return x;
       }
       current = current.next();
@@ -75,19 +80,36 @@ public class MyLinkedList{
     return -1;
   }
   public void add(int index, Integer value){
-    Node current = getNthNode(index);
-    Node y = new Node(value, current, current.prev());
-    current.prev().setNext(y);
-    current.setPrev(y);
-    if (index == 0){
-      start = y;
+    if (index < 0 || index > size()){
+      throw new IndexOutOfBoundsException();
     }
-    if (index == size - 1){
-      end = y;
+    if (index != size){
+      Node current = getNthNode(index);
+      Node y;
+      if (index != 0){
+        y = new Node(value, current, current.prev());
+        current.prev().setNext(y);
+      }
+      else{
+        y = new Node(value, current, null);
+      }
+      current.setPrev(y);
+      if (index == 0){
+        start = y;
+      }
+      if (index == size - 1){
+        end = y;
+      }
+      size += 1;
     }
-    size += 1;
+    else{
+      add(value);
+    }
   }
   public Integer remove(int index){
+    if (index < 0 || index >= size()){
+      throw new IndexOutOfBoundsException();
+    }
     Node current = getNthNode(index);
     int old = current.getData();
     if (current != start){
